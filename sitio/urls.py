@@ -20,5 +20,8 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('aplicacion.urls')),
+<<<<<<< refs/remotes/origin/master
     path('accounts/',include('django.contrib.auth.urls'))
+=======
+>>>>>>> agregado el index a django
 ]
