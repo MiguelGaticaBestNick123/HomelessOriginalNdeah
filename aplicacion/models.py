@@ -13,7 +13,7 @@ SEXO = [
 class User(AbstractUser):
     pass 
 
-class Familiar(model.Model):
+class Familiar(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     rut=models.CharField(primary_key=True, null=False, max_length=10,error_messages="Debe ingresar rut")
     nombre=models.CharField(max_length=50)
@@ -27,6 +27,7 @@ class Familiar(model.Model):
     
 class Aportador(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    rut = models.CharField(max_length=13, primary_key=True)
     nombre = models.CharField(max_length=100)
     apellido = models.CharField(max_length=100)
     direccion = models.CharField(max_length=200)
