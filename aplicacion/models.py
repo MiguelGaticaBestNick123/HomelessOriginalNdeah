@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import AbstractUser, Group, Permission
 
 # Create your models here.
 
@@ -10,8 +10,12 @@ SEXO = [
         ("O", "Otro"),
     ]
 
+
+
 class User(AbstractUser):
-    pass 
+    groups = models.ManyToManyField(Group, related_name='custom_user_set')
+    user_permissions = models.ManyToManyField(Permission, related_name='custom_user_set')
+
 
 class Familiar(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -33,7 +37,7 @@ class Aportador(models.Model):
     direccion = models.CharField(max_length=200)
     correo = models.EmailField()
     telefono = models.CharField(max_length=20)
-    nro_tarjeta = models.IntegerField(max_length=16)
+    nro_tarjeta = models.IntegerField()
     sexo=models.CharField(max_length=1, choices=SEXO)
 
 
