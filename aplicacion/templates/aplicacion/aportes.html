@@ -1,0 +1,208 @@
+
+
+
+{% extends 'aplicacion/base.html' %}
+{% load static %}
+
+{% block contenido %}
+
+<head>
+  <title>Donación</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    body {
+      background-image: url("../../static/aplicacion/imgs/viejosdown.jpg");
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+
+    .donation-section {
+      background-color: #f6f6f6;
+      padding: 50px;
+      text-align: center;
+      display: inline-block;
+    }
+
+    .donation-title {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    .donation-description {
+      font-size: 18px;
+      margin-bottom: 40px;
+    }
+
+    .donation-amounts {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-bottom: 40px;
+    }
+
+    .donation-amount {
+      background-color: #ffffff;
+      border: 1px solid #dddddd;
+      border-radius: 5px;
+      padding: 20px;
+      margin: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .donation-amount:hover {
+      background-color: #f9f9f9;
+    }
+
+    .donation-amount.selected {
+      background-color: #ff4b4b;
+      color: #ffffff;
+    }
+
+    .donation-amount .amount-value {
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .donation-amount .amount-description {
+      font-size: 14px;
+      color: #888888;
+    }
+
+    .payment-methods {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 40px;
+    }
+
+    .payment-methods .payment-method {
+      margin: 0 10px;
+    }
+
+    .payment-methods .payment-method img {
+      width: 100px;
+      height: 100px;
+      cursor: pointer;
+      transition: opacity 0.3s;
+    }
+
+    .payment-methods .payment-method img:hover {
+      opacity: 0.7;
+    }
+
+    .terms-and-conditions {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .terms-and-conditions label {
+      font-weight: bold;
+    }
+
+    .donation-button {
+      display: block;
+      margin: 0 auto;
+      padding: 15px 50px;
+      font-size: 18px;
+      font-weight: bold;
+      background-color: #ff4b4b;
+      color: #ffffff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .donation-button:hover {
+      background-color: #ff3030;
+    }
+  </style>
+</head>
+<body>
+  <div class="donation-section">
+    <h2 class="donation-title">¡Ayuda a quienes más lo necesitan!</h2>
+    <p class="donation-description">Tu donación puede marcar la diferencia en sus vidas.</p>
+    <div class="donation-amounts">
+      <div class="donation-amount" onclick="selectAmount(10000)">
+        <span class="amount-value">$10.000</span>
+        <span class="amount-description">1 día de alimentación asistida</span>
+        </div>
+        <div class="donation-amount" onclick="selectAmount(22000)">
+        <span class="amount-value">$22.000</span>
+        <span class="amount-description">1 día de lácteos para un hogar</span>
+        </div>
+        <div class="donation-amount" onclick="selectAmount(72000)">
+        <span class="amount-value">$72.000</span>
+        <span class="amount-description">Canasta de alimentos</span>
+        </div>
+        </div>
+        <div class="payment-methods">
+        <div class="payment-method">
+        <img src="../../static/aplicacion/imgs/trans.png" alt="Transferencia">
+        </div>
+        <div class="payment-method">
+        <img src="../../static/aplicacion/imgs/paypal.jpg" alt="PayPal">
+        </div>
+        </div>
+        <div class="terms-and-conditions">
+        <label for="terms">Acepto los términos y condiciones</label>
+        <input type="checkbox" id="terms" name="terms">
+        </div>
+        <button class="donation-button" onclick="confirmDonation()">Donar ahora</button>
+        
+          </div>
+          <script>
+            let selectedAmount = null;
+        
+            function selectAmount(amount) {
+              selectedAmount = amount;
+              const donationAmounts = document.querySelectorAll('.donation-amount');
+              donationAmounts.forEach((amount) => {
+                amount.classList.remove('selected');
+              });
+              event.target.closest('.donation-amount').classList.add('selected');
+            }
+        
+            function confirmDonation() {
+              if (selectedAmount) {
+                const terms = document.getElementById('terms');
+                if (terms.checked) {
+                  // Realizar la acción de confirmar la donación
+                  alert('Donación confirmada: $' + selectedAmount);
+                } else {
+                  alert('Por favor, acepta los términos y condiciones');
+                }
+              } else {
+                alert('Por favor, selecciona un monto de donación');
+              }
+            }
+          </script>
+        </body>
+        
+
+{% endblock %}
+
+
+    
+
+
+    
+
+
+
+
+      
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+

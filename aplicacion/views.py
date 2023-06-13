@@ -7,3 +7,5 @@ def index(request):
 
 def iniciosession(request):
     return render(request, 'aplicacion/iniciosession.html')
+def aportes(request):
+    return render(request,'aplicacion/aportes.html')
