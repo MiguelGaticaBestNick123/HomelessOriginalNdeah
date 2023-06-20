@@ -19,5 +19,7 @@ def Login(request):
         return redirect(to="index.html")
     return render(request, 'aplicacion/registration/login.html')
 
+def notasmedicas(request):
+    return render (request, 'aplicacion/notasmedicas.html')
 
 # @permission_required('aplicacion.view_login')

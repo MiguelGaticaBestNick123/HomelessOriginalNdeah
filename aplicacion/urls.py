@@ -1,10 +1,10 @@
 
 from django.urls import path
-from .views import index, iniciosession, notasmedicas
+from .views import index, Login, notasmedicas
 
 urlpatterns = [
     path('', index, name="index"),
 
-    path('iniciosession', iniciosession, name="iniciosession"),
+    path('login', Login, name="login"),
     path('notasmedicas', notasmedicas, name="notasmedicas")
 ]
