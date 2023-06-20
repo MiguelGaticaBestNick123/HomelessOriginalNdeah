@@ -1,0 +1,40 @@
+{% extends 'aplicacion/base.html' %}
+{% load static %}
+{% block contenido %}
+
+
+<h1>FUNCIONANDO</h1>
+<div class="table-responsive p-3">
+    <table class="table table-striped
+        table-hover	
+        table-borderless
+        table-success
+        align-middle">
+        <thead class="table-light">
+            <caption>Notas Registradas</caption>
+            <tr>
+                <th>persona</th>
+                <th>nombre_plan</th>
+                <th>tipo_pago</th>
+                
+            </tr>
+        </thead>
+        <tbody class="table-group-divider">
+            {% for pagos in pago %}
+            <tr class="table-primary">
+                <td>{{pagos.detallePago.persona}}</td>
+                <td>{{pagos.detallePlan.nombre_plan}}</td>
+                <td>{{pagos.detallePago.tipo_pago}}</td>
+            
+                </tr>
+            
+            </tr>
+            {% endfor %}
+        </tbody>
+        <tfoot>
+
+        </tfoot>
+    </table>
+</div>
+
+{% endblock %}
