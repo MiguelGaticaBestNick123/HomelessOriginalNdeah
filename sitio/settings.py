@@ -28,6 +28,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+MASSAGE_STORAGE = "django.contrib.massages.storage.cookie.CookieStorage"
+
 LOGIN_REDIRECT_URL ='/'
 LOGOUT_REDIRECT_URL ='/'
 # Application definition

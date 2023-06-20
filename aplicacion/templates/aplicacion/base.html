@@ -20,7 +20,7 @@
     
         <!-- Archivos JS personalizados -->
         <script src="js/script-index.js"></script>
-     
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
@@ -65,6 +65,9 @@
                         <li>
                             <a href="{% url 'login' %}"></a>
                         </li>
+                        <li>
+                            <a style= "color: black;"  href="{% url 'registro' %}">Registrate</a>
+                        </li>
                         {% endif %}
                         
                     </li>
@@ -73,6 +76,21 @@
         </div>
     </nav>
     <!-- Se acabó el nav  -->
+    
+
+    
+
+    {% if messages %}
+        {% for m in messages %}
+            <script>
+                Swal.fire{(
+                    "title": "Felicitaciones",
+                    "text": "{{m}}",
+                    "icon": "success"
+                )}
+            </script>
+        {% endfor %}
+    {% endif %}
 
     {%block contenido%}
 
@@ -96,5 +114,6 @@
     
 
 </body>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></>
 
 </html>
