@@ -1,5 +1,4 @@
 from django.db import models
-from django.contrib.auth.models import AbstractUser, Group, Permission
 
 # Create your models here.
 
@@ -11,14 +10,7 @@ SEXO = [
     ]
 
 
-
-class User(AbstractUser):
-    groups = models.ManyToManyField(Group, related_name='custom_user_set')
-    user_permissions = models.ManyToManyField(Permission, related_name='custom_user_set')
-
-
 class Familiar(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
     rut=models.CharField(primary_key=True, null=False, max_length=10,error_messages="Debe ingresar rut")
     nombre=models.CharField(max_length=50)
     apellido=models.CharField(max_length=50)
@@ -30,8 +22,6 @@ class Familiar(models.Model):
         return self.nombre + ' ' + self.apellido
     
 class Aportador(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    rut = models.CharField(max_length=13, primary_key=True)
     nombre = models.CharField(max_length=100)
     apellido = models.CharField(max_length=100)
     direccion = models.CharField(max_length=200)
@@ -85,9 +75,3 @@ class StockInsumo(models.Model):
 
     def __str__(self):
         return str(self.insumo) + ' - ' + str(self.cantidad_stock)
-    
-class Staff:
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    nombre = models.CharField(max_length=100)
-    cargo = models.CharField(max_length=100)
-    descripcion = models.TextField()
