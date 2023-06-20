@@ -1,0 +1,40 @@
+{% extends 'aplicacion/base.html' %}
+{% load static %}
+{% block contenido %}
+
+
+<h1>FUNCIONANDO</h1>
+<div class="table-responsive p-3">
+    <table class="table table-striped
+        table-hover	
+        table-borderless
+        table-success
+        align-middle">
+        <thead class="table-light">
+            <caption>Notas Registradas</caption>
+            <tr>
+                <th>Residente</th>
+                <th>Fecha</th>
+                <th>Descripción</th>
+                
+            </tr>
+        </thead>
+        <tbody class="table-group-divider">
+            {% for nota in notas %}
+            <tr class="table-primary">
+                <td>{{nota.residente}}</td>
+                <td>{{nota.fecha_hora}}</td>
+                <td>{{nota.descripcion}}</td>
+            
+                </tr>
+            
+            </tr>
+            {% endfor %}
+        </tbody>
+        <tfoot>
+
+        </tfoot>
+    </table>
+</div>
+
+{% endblock %}
