@@ -1,7 +1,5 @@
-
-
-
 {% extends 'aplicacion/base.html' %}
+
 {% load static %}
 
 {% block contenido %}
@@ -118,6 +116,117 @@
     .donation-button:hover {
       background-color: #ff3030;
     }
+
+    .popup {
+      display: none;
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 400px;
+      height: 100%;
+      background-color: #ffffff;
+      z-index: 9999;
+      box-shadow: 0 0 10px rgba(0, 0, 0      , 0.3);
+    }
+
+    .popup-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      border-radius: 5px;
+    }
+
+    .popup-content h2 {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    .popup-content form {
+      width: 100%;
+      max-width: 300px;
+    }
+
+    .popup-content label {
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .popup-content input[type="text"],
+    .popup-content input[type="tel"],
+    .popup-content input[type="email"] {
+      width: 100%;
+      padding: 5px;
+      margin-bottom: 10px;
+    }
+
+    .popup-content input[type="submit"] {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      font-size: 18px;
+      font-weight: bold;
+      background-color: #ff4b4b;
+      color: #ffffff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .popup-content input[type="submit"]:hover {
+      background-color: #ff3030;
+    }
+
+    .close {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-size: 20px;
+      font-weight: bold;
+      color: #888888;
+      cursor: pointer;
+    }
+
+    .cart {
+      position: fixed;
+      top: 50%;
+      right: 20px;
+      transform: translateY(-50%);
+      background-color: #ffffff;
+      border-radius: 5px;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .cart-title {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .cart-items {
+      margin-bottom: 10px;
+    }
+
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 5px;
+    }
+
+    .cart-item .item-name {
+      flex: 1;
+      font-size: 14px;
+    }
+
+    .cart-item .item-price {
+      font-size: 14px;
+      font-weight: bold;
+    }
   </style>
 </head>
 <body>
@@ -128,81 +237,153 @@
       <div class="donation-amount" onclick="selectAmount(10000)">
         <span class="amount-value">$10.000</span>
         <span class="amount-description">1 día de alimentación asistida</span>
-        </div>
-        <div class="donation-amount" onclick="selectAmount(22000)">
+      </div>
+      <div class="donation-amount" onclick="selectAmount(22000)">
         <span class="amount-value">$22.000</span>
         <span class="amount-description">1 día de lácteos para un hogar</span>
-        </div>
-        <div class="donation-amount" onclick="selectAmount(72000)">
-        <span class="amount-value">$72.000</span>
+      </div>
+      <div class="donation-amount" onclick="selectAmount(72000)">
+        <span        class="amount-value">$72.000</span>
         <span class="amount-description">Canasta de alimentos</span>
-        </div>
-        </div>
-        <div class="payment-methods">
-        <div class="payment-method">
-        <img src="../../static/aplicacion/imgs/trans.png" alt="Transferencia">
-        </div>
-        <div class="payment-method">
+      </div>
+      <div class="donation-amount" onclick="selectCustomAmount()">
+        <span class="amount-value">Seleccionar otro monto</span>
+      </div>
+    </div>
+    <div class="payment-methods">
+      <div class="payment-method">
+        <img src="../../static/aplicacion/imgs/trans.png" alt="Transferencia" onclick="openPopup()">
+      </div>
+      <div class="payment-method">
         <img src="../../static/aplicacion/imgs/paypal.jpg" alt="PayPal">
-        </div>
-        </div>
-        <div class="terms-and-conditions">
-        <label for="terms">Acepto los términos y condiciones</label>
-        <input type="checkbox" id="terms" name="terms">
-        </div>
-        <button class="donation-button" onclick="confirmDonation()">Donar ahora</button>
-        
-          </div>
-          <script>
-            let selectedAmount = null;
-        
-            function selectAmount(amount) {
-              selectedAmount = amount;
-              const donationAmounts = document.querySelectorAll('.donation-amount');
-              donationAmounts.forEach((amount) => {
-                amount.classList.remove('selected');
-              });
-              event.target.closest('.donation-amount').classList.add('selected');
-            }
-        
-            function confirmDonation() {
-              if (selectedAmount) {
-                const terms = document.getElementById('terms');
-                if (terms.checked) {
-                  // Realizar la acción de confirmar la donación
-                  alert('Donación confirmada: $' + selectedAmount);
-                } else {
-                  alert('Por favor, acepta los términos y condiciones');
-                }
-              } else {
-                alert('Por favor, selecciona un monto de donación');
-              }
-            }
-          </script>
-        </body>
-        
+      </div>
+    </div>
+    <div class="terms-and-conditions">
+      <label for="terms">Acepto los términos y condiciones</label>
+      <input type="checkbox" id="terms" name="terms">
+    </div>
+    <button class="donation-button" onclick="confirmDonation()">Donar ahora</button>
+  </div>
+
+  <div class="popup" id="popup">
+    <div class="popup-content">
+      <h2>Donar por transferencia</h2>
+      <form>
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" name="nombre" required>
+        <label for="apellido">Apellido:</label>
+        <input type="text" id="apellido" name="apellido" required>
+        <label for="rut">RUT:</label>
+        <input type="text" id="rut" name="rut" required>
+        <label for="telefono">Teléfono:</label>
+        <input type="tel" id="telefono" name="telefono" required>
+        <label for="correo">Correo:</label>
+        <input type="email" id="correo" name="correo" required>
+        <input type="submit" value="Donar">
+      </form>
+      <span class="close" onclick="closePopup()">&times;</span>
+    </div>
+  </div>
+
+  <div class="cart" id="cart">
+    <h3 class="cart-title">Carrito</h3>
+    <div class="cart-items" id="cart-items">
+      <!-- Los elementos del carrito se añadirán dinámicamente aquí -->
+    </div>
+  </div>
+
+  <script>
+    let selectedAmount = null;
+    let customAmount = null;
+
+    function selectAmount(amount) {
+      selectedAmount = amount;
+      customAmount = null;
+      const donationAmounts = document.querySelectorAll('.donation-amount');
+      donationAmounts.forEach((amount) => {
+        amount.classList.remove('selected');
+      });
+      event.target.closest('.donation-amount').classList.add('selected');
+    }
+
+    function selectCustomAmount() {
+      selectedAmount = null;
+      customAmount = prompt('Ingresa el monto que deseas donar:');
+      const donationAmounts = document.querySelectorAll('.donation-amount');
+      donationAmounts.forEach((amount) => {
+        amount.classList.remove('selected');
+      });
+    }
+
+    function confirmDonation() {
+      let amount;
+      if (selectedAmount) {
+        amount = selectedAmount;
+      } else if (customAmount) {
+        amount = parseInt(customAmount);
+      } else {
+        alert('Por favor, selecciona un monto de donación');
+        return;
+      }
+
+      const terms = document.getElementById('terms');
+      if (!terms.checked) {
+        alert('Por favor, acepta los términos y condiciones');
+        return;
+      }
+
+      // Crear elemento del carrito
+      const cartItem = document.createElement('div');
+      cartItem.classList.add('cart-item');
+      cartItem.innerHTML = `
+        <span class="cart-item-amount">$${amount}</span>
+        <span class="cart-item-remove" onclick="removeCartItem(event)">&times;</span>
+      `;
+
+      // Agregar elemento al carrito
+      const cartItems = document.getElementById('cart-items');
+      cartItems.appendChild(cartItem);
+
+      // Limpiar selección de monto y monto personalizado
+      selectedAmount = null;
+      customAmount = null;
+      const donationAmounts = document.querySelectorAll('.donation-amount');
+      donationAmounts.forEach((amount) => {
+        amount.classList.remove('selected');
+      });
+
+      // Mostrar carrito
+      const cart = document.getElementById('cart');
+      cart.style.display = 'block';
+
+      // Confirmar la donación
+      alert('Donación confirmada: $' + amount);
+    }
+
+    function removeCartItem(event) {
+      const cartItem = event.target.closest('.cart-item');
+      cartItem.remove();
+
+      // Ocultar carrito si no hay elementos
+      const cartItems = document.getElementById('cart-items');
+      if (cartItems.childElementCount === 0) {
+        const cart = document.getElementById('cart');
+        cart.style.display = 'none';
+      }
+    }
+
+    function openPopup() {
+      const popup = document.getElementById('popup');
+      popup.style.display = 'block';
+    }
+
+    function closePopup() {
+      const popup = document.getElementById('popup');
+      popup.style.display = 'none';
+    }
+  </script>
+</body>
 
 {% endblock %}
-
-
-    
-
-
-    
-
-
-
-
-      
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
 
