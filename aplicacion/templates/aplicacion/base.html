@@ -81,16 +81,16 @@
     
 
     {% if messages %}
-        {% for m in messages %}
-            <script>
-                Swal.fire{(
-                    "title": "Felicitaciones",
-                    "text": "{{m}}",
-                    "icon": "success"
-                )}
-            </script>
-        {% endfor %}
-    {% endif %}
+    {% for message in messages %}
+        <script>
+            Swal.fire({
+                title: 'Felicitaciones',
+                text: '{{ message }}',
+                icon: 'success'
+            });
+        </script>
+    {% endfor %}
+{% endif %}
 
     {%block contenido%}
 
