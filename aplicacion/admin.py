@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Familiar, Aportador, Residente, Accion, Insumo, CompraInsumo, StockInsumo
+from .models import Familiar, Aportador, Residente, Accion, Insumo, CompraInsumo, StockInsumo, Plan, Pago, DetallePlan
 
 
 
@@ -11,8 +11,8 @@ class FamiliarAdmin(admin.ModelAdmin):
         
 
 class AportadorAdmin(admin.ModelAdmin):
-    list_display = ('nombre', 'apellido', 'direccion', 'correo', 'telefono', 'nro_tarjeta', 'sexo')
-    list_editable = ('direccion', 'correo', 'telefono', 'nro_tarjeta')
+    list_display = ('nombre', 'apellido', 'direccion', 'correo', 'telefono', 'sexo')
+    list_editable = ('direccion', 'correo', 'telefono', )
     class meta:
         model = Aportador
 
@@ -46,8 +46,24 @@ class StockInsumoAdmin(admin.ModelAdmin):
     list_display_links = ('insumo',)  # Agrega esta línea
     class meta:
         model = StockInsumo
+        
+class PlanAdmin (admin.ModelAdmin):
+    list_display = ('nombre_plan', 'costo_plan','descripcion_plan')
+    class meta:
+        model = Plan
 
-
+class PagoAdmin (admin.ModelAdmin):
+    list_display = ('persona', 'tipo_pago','nro_tarjeta','fecha_caducidad', 'titular')
+    list_editable = ['titular']
+    class meta:
+        model = Pago
+    
+class DetallePlanAdmin (admin.ModelAdmin):
+    list_display = ('detallePago', 'detallePlan')
+    class meta:
+        model = DetallePlan
+    
+    
 admin.site.register(Familiar, FamiliarAdmin)
 admin.site.register(Aportador, AportadorAdmin)
 admin.site.register(Residente, ResidenteAdmin)
@@ -55,3 +71,6 @@ admin.site.register(CompraInsumo, CompraInsumoAdmin)
 admin.site.register(Accion, AccionAdmin)
 admin.site.register(Insumo, InsumoAdmin)
 admin.site.register(StockInsumo, StockInsumoAdmin)
+admin.site.register(Plan, PlanAdmin)
+admin.site.register(Pago, PagoAdmin)
+admin.site.register(DetallePlan, DetallePlanAdmin)

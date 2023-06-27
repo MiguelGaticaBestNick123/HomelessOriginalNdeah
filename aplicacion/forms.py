@@ -11,3 +11,10 @@ class LoginForm(forms.ModelForm):
         
 class CustomUserCreationForm(UserCreationForm):
     pass
+
+
+class FrmPagar(forms.ModelForm):
+    class Meta: 
+        fields = ("tipo_pago","nro_tarjeta","fecha_caducidad","titular")
+
+# a

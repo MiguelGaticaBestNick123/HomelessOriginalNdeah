@@ -13,3 +13,8 @@
     color: #fff; /* Cambia el color del texto aquí */
 }
 
+body {
+    background-image: url('/aplicacion/static/aplicacion/imgs/ancianeke.webp');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
