@@ -1,42 +1,76 @@
 {% extends 'aplicacion/base.html' %}
 {% load static %}
+
 {% block contenido %}
 <br>
+<h1>Bienvenido a nuestro sitio Web HomeLess!</h1>
 <br>
-<!-- Carousel -->
-<div class="carousel-container">
-    <div id="demo" class="carousel slide" data-bs-ride="carousel">
-    
-        <!-- Indicators/dots -->
-        
-        <div class="carousel-indicators">
-        <button type="button" data-bs-target="#demo" data-bs-slide-to="0" class="active"></button>
-        <button type="button" data-bs-target="#demo" data-bs-slide-to="1"></button>
-        <button type="button" data-bs-target="#demo" data-bs-slide-to="2"></button>
-        </div>
-    
-        <!-- The slideshow/carousel -->
-        <div class="carousel-inner">
-        <div class="carousel-item active">
-            <img src="imgs/feliz-dia-abuelos-2022_98.webp" class="d-block w-100">
-        </div>
-        <div class="carousel-item">
-            <img src="imgs/Dia-Abuelos.jpg " class="d-block w-100">
-        </div>
-        <div class="carousel-item">
-            <img src="imgs/descarga.png" class="d-block w-100">
-        </div>
-        </div>
-    
-        <!-- Left and right controls/icons -->
-        <button class="carousel-control-prev" type="button" data-bs-target="#demo" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon"></span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#demo" data-bs-slide="next">
-        <span class="carousel-control-next-icon"></span>
-        </button>
-    </div>
-    </div>
 
+<div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
+  <!-- Indicadores del carrusel -->
+  <ol class="carousel-indicators">
+    <li data-bs-target="#myCarousel" data-bs-slide-to="0" class="active"></li>
+    <li data-bs-target="#myCarousel" data-bs-slide-to="1"></li>
+    <li data-bs-target="#myCarousel" data-bs-slide-to="2"></li>
+    <!-- Agrega más indicadores si tienes más imágenes -->
+  </ol>
+
+  <!-- Imágenes del carrusel -->
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="{% static 'aplicacion/imgs/Dia-Abuelos.jpg' %}" alt="Imagen 1" class="d-block mx-auto carousel-image">
+    </div>
+    <div class="carousel-item">
+      <img src="{% static 'aplicacion/imgs/pareja-ancianos-abrazandose-parque-primavera-al-aire-libre-divirtiendose-disfrutando-juntos-mirando-arboles-dos-personas-mayores-maduras-enamoradas-cuidandose-mutuam.avif' %}" alt="Imagen 2" class="d-block mx-auto carousel-image2">
+    </div>
+    <div class="carousel-item">
+      <img src="{% static 'aplicacion/imgs/feliz-dia-abuelos-2022_98.webp' %}" alt="Imagen 3" class="d-block mx-auto carousel-image3">
+    </div>
+    <!-- Agrega más divs con class="carousel-item" para más imágenes -->
+  </div>
+
+  <!-- Controles del carrusel -->
+  <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Anterior</span>
+  </button>
+  <button style="color: black;" class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Siguiente</span>
+  </button>
+</div>
+
+<!-- Estilos CSS personalizados -->
+<style>
+  .carousel-image {
+    max-height: 400px; /* Ajusta el tamaño de la imagen según tus preferencias */
+    width: auto;
+  }
+  .carousel-image2 {
+    max-height: 400px; /* Ajusta el tamaño de la imagen según tus preferencias */
+    width: auto;
+  }
+  .carousel-image3 {
+    max-height: 400px; /* Ajusta el tamaño de la imagen según tus preferencias */
+    width: auto;
+  }
+  h1 {
+    text-align: center;
+  }
+</style>
+
+<!-- Incluye los archivos CSS y JavaScript de Bootstrap y Slick Carousel -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Inicialización del carrusel -->
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var myCarousel = document.getElementById('myCarousel')
+    var carousel = new bootstrap.Carousel(myCarousel, {
+      interval: 2000, // Cambia la imagen cada 2 segundos (ajusta el valor según tus necesidades)
+      wrap: true // Permite volver al principio después de llegar al final
+    })
+  })
+</script>
 {% endblock %}
-
