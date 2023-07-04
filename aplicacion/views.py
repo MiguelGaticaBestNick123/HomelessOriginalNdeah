@@ -5,6 +5,7 @@ from django.shortcuts import render,get_object_or_404,redirect
 from .models import Accion, DetallePlan
 from django.contrib.auth import authenticate, login
 from django.contrib import messages
+from django.shortcuts import render
 # Create your views here.
 
 def index(request):
@@ -63,7 +64,11 @@ def pagar (request):
 
     return render(request,"index.html",contexto)
         
-        
+
+def donacion (request):
+    return render(request, 'aplicacion/donacion.html')
+
+       
         
         
         

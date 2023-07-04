@@ -1,0 +1,390 @@
+{% extends 'aplicacion/base.html' %}
+
+{% load static %}
+
+{% block contenido %}
+
+<head>
+  <title>Donación</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    body {
+      background-image: url("../../static/aplicacion/imgs/viejosdown.jpg");
+      background-repeat: no-repeat;
+      background-size: cover;
+      color: cca9dd;
+    }
+
+    .donation-section {
+      background-color: #cca9dd;
+      padding: 50px;
+      text-align: center;
+      display: inline-block;
+    }
+
+    .donation-title {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    .donation-description {
+      font-size: 18px;
+      margin-bottom: 40px;
+    }
+
+    .donation-amounts {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-bottom: 40px;
+    }
+
+    .donation-amount {
+      background-color: #ffffff;
+      border: 1px solid #dddddd;
+      border-radius: 5px;
+      padding: 20px;
+      margin: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .donation-amount:hover {
+      background-color: #f9f9f9;
+    }
+
+    .donation-amount.selected {
+      background-color: #ff4b4b;
+      color: #c7a7d4;
+    }
+
+    .donation-amount .amount-value {
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .donation-amount .amount-description {
+      font-size: 14px;
+      color: #cca9dd;
+    }
+
+    .payment-methods {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 40px;
+    }
+
+    .payment-methods .payment-method {
+      margin: 0 10px;
+    }
+
+    .payment-methods .payment-method img {
+      width: 100px;
+      height: 100px;
+      cursor: pointer;
+      transition: opacity 0.3s;
+    }
+
+    .payment-methods .payment-method img:hover {
+      opacity: 0.7;
+    }
+
+    .terms-and-conditions {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .terms-and-conditions label {
+      font-weight: bold;
+    }
+
+    .donation-button {
+      display: block;
+      margin: 0 auto;
+      padding: 15px 50px;
+      font-size: 18px;
+      font-weight: bold;
+      background-color: #ff4b4b;
+      color: #cca9dd;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .donation-button:hover {
+      background-color: #ff3030;
+    }
+
+    .popup {
+      display: none;
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 400px;
+      height: 100%;
+      background-color: #cca9dd;
+      z-index: 9999;
+      box-shadow: 0 0 10px rgba(0, 0, 0      , 0.3);
+    }
+
+    .popup-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      border-radius: 5px;
+    }
+
+    .popup-content h2 {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    .popup-content form {
+      width: 100%;
+      max-width: 300px;
+    }
+
+    .popup-content label {
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .popup-content input[type="text"],
+    .popup-content input[type="tel"],
+    .popup-content input[type="email"] {
+      width: 100%;
+      padding: 5px;
+      margin-bottom: 10px;
+    }
+
+    .popup-content input[type="submit"] {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      font-size: 18px;
+      font-weight: bold;
+      background-color: #ff4b4b;
+      color: #cca9dd;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .popup-content input[type="submit"]:hover {
+      background-color: #ff3030;
+    }
+
+    .close {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-size: 20px;
+      font-weight: bold;
+      color: #888888;
+      cursor: pointer;
+    }
+
+    .cart {
+      position: fixed;
+      top: 50%;
+      right: 20px;
+      transform: translateY(-50%);
+      background-color: #ffffff;
+      border-radius: 5px;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .cart-title {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .cart-items {
+      margin-bottom: 10px;
+    }
+
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 5px;
+    }
+
+    .cart-item .item-name {
+      flex: 1;
+      font-size: 14px;
+    }
+
+    .cart-item .item-price {
+      font-size: 14px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body style="color: c7a7d4;">
+  <div class="donation-section">
+    <h2 class="donation-title">¡Ayuda a quienes más lo necesitan!</h2>
+    <p class="donation-description">Tu donación puede marcar la diferencia en sus vidas.</p>
+    <div class="donation-amounts">
+      <div class="donation-amount" onclick="selectAmount(10000)">
+        <span class="amount-value">$10.000</span>
+        <span class="amount-description">1 día de alimentación asistida</span>
+      </div>
+      <div class="donation-amount" onclick="selectAmount(22000)">
+        <span class="amount-value">$22.000</span>
+        <span class="amount-description">1 día de lácteos para un hogar</span>
+      </div>
+      <div class="donation-amount" onclick="selectAmount(72000)">
+        <span        class="amount-value">$72.000</span>
+        <span class="amount-description">Canasta de alimentos</span>
+      </div>
+      <div class="donation-amount" onclick="selectCustomAmount()">
+        <span class="amount-value">Seleccionar otro monto</span>
+      </div>
+    </div>
+    <div class="payment-methods">
+      <div class="payment-method">
+        <img src="../../static/aplicacion/imgs/trans.png" alt="Transferencia" onclick="openPopup()">
+      </div>
+      <div class="payment-method">
+        <img src="../../static/aplicacion/imgs/paypal.jpg" alt="PayPal">
+      </div>
+    </div>
+    <div class="terms-and-conditions">
+      <label for="terms">Acepto los términos y condiciones</label>
+      <input type="checkbox" id="terms" name="terms">
+    </div>
+    <button class="donation-button" onclick="confirmDonation()">Donar ahora</button>
+  </div>
+
+  <div class="popup" id="popup">
+    <div class="popup-content">
+      <h2>Donar por transferencia</h2>
+      <form>
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" name="nombre" required>
+        <label for="apellido">Apellido:</label>
+        <input type="text" id="apellido" name="apellido" required>
+        <label for="rut">RUT:</label>
+        <input type="text" id="rut" name="rut" required>
+        <label for="telefono">Teléfono:</label>
+        <input type="tel" id="telefono" name="telefono" required>
+        <label for="correo">Correo:</label>
+        <input type="email" id="correo" name="correo" required>
+        <input type="submit" value="Donar">
+      </form>
+      <span class="close" onclick="closePopup()">&times;</span>
+    </div>
+  </div>
+
+  <div class="cart" id="cart">
+    <h3 class="cart-title">Carrito</h3>
+    <div class="cart-items" id="cart-items">
+      <!-- Los elementos del carrito se añadirán dinámicamente aquí -->
+    </div>
+  </div>
+
+  <script>
+    let selectedAmount = null;
+    let customAmount = null;
+
+    function selectAmount(amount) {
+      selectedAmount = amount;
+      customAmount = null;
+      const donationAmounts = document.querySelectorAll('.donation-amount');
+      donationAmounts.forEach((amount) => {
+        amount.classList.remove('selected');
+      });
+      event.target.closest('.donation-amount').classList.add('selected');
+    }
+
+    function selectCustomAmount() {
+      selectedAmount = null;
+      customAmount = prompt('Ingresa el monto que deseas donar:');
+      const donationAmounts = document.querySelectorAll('.donation-amount');
+      donationAmounts.forEach((amount) => {
+        amount.classList.remove('selected');
+      });
+    }
+
+    function confirmDonation() {
+      let amount;
+      if (selectedAmount) {
+        amount = selectedAmount;
+      } else if (customAmount) {
+        amount = parseInt(customAmount);
+      } else {
+        alert('Por favor, selecciona un monto de donación');
+        return;
+      }
+
+      const terms = document.getElementById('terms');
+      if (!terms.checked) {
+        alert('Por favor, acepta los términos y condiciones');
+        return;
+      }
+
+      // Crear elemento del carrito
+      const cartItem = document.createElement('div');
+      cartItem.classList.add('cart-item');
+      cartItem.innerHTML = `
+        <span class="cart-item-amount">$${amount}</span>
+        <span class="cart-item-remove" onclick="removeCartItem(event)">&times;</span>
+      `;
+
+      // Agregar elemento al carrito
+      const cartItems = document.getElementById('cart-items');
+      cartItems.appendChild(cartItem);
+
+      // Limpiar selección de monto y monto personalizado
+      selectedAmount = null;
+      customAmount = null;
+      const donationAmounts = document.querySelectorAll('.donation-amount');
+      donationAmounts.forEach((amount) => {
+        amount.classList.remove('selected');
+      });
+
+      // Mostrar carrito
+      const cart = document.getElementById('cart');
+      cart.style.display = 'block';
+
+      // Confirmar la donación
+      alert('Donación confirmada: $' + amount);
+    }
+
+    function removeCartItem(event) {
+      const cartItem = event.target.closest('.cart-item');
+      cartItem.remove();
+
+      // Ocultar carrito si no hay elementos
+      const cartItems = document.getElementById('cart-items');
+      if (cartItems.childElementCount === 0) {
+        const cart = document.getElementById('cart');
+        cart.style.display = 'none';
+      }
+    }
+
+    function openPopup() {
+      const popup = document.getElementById('popup');
+      popup.style.display = 'block';
+    }
+
+    function closePopup() {
+      const popup = document.getElementById('popup');
+      popup.style.display = 'none';
+    }
+  </script>
+</body>
+
+{% endblock %}
+    
+
